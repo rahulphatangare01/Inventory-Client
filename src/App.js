@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import BusniessInfo from "./component/home/BusniessInfo"
+import BussinessTable from './component/home/BussinessTable';
+import Buyer from "./component/home/Buyer"
+import LoginCompo from "./component/home/LoginCompo"
+import MainContainer from "./component/home/MainContainer"
+import Order from "./component/home/Order"
+import ProductInfo from "./component/home/Product"
+import ProductTable from './component/home/ProductTable';
+import PurchaseInfo from "./component/home/PurchaseInfo"
+import Sell from "./component/home/Sell"
+import SignCompo from "./component/home/SignCompo"
+import SuplierInfo from "./component/home/SuplierInfo"
+import UpdateBusiness from './component/home/UpdateBusniess';
+ 
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+   
+<>
+
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LoginCompo />} />
+        <Route path="/signup" element={<SignCompo />} />
+        <Route path ="/main" element = {<MainContainer/>}/>
+        <Route path ="/product" element = {<ProductTable/>}/>
+        <Route path ="/bussinessTable" element = {<BussinessTable/>}/>
+        <Route path ="//updateBusiness/:id" element = {<UpdateBusiness/>}/>
+        <Route path ="/BusniessInfo" element = {<BusniessInfo/>}/>
+
+
+
+
+      </Routes>
+    </BrowserRouter>
+    
+
+</>
+   
+  
+ 
+  )
 }
 
-export default App;
+export default App
