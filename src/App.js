@@ -11,6 +11,7 @@ import PurchaseInfo from "./component/home/PurchaseInfo"
 import Sell from "./component/home/Sell"
 import SignCompo from "./component/home/SignCompo"
 import SuplierInfo from "./component/home/SuplierInfo"
+import SupplierTable from './component/home/SupplierTable';
 import UpdateBusiness from './component/home/UpdateBusniess';
  
 
@@ -25,9 +26,17 @@ function App() {
         <Route path="/signup" element={<SignCompo />} />
         <Route path ="/main" element = {<MainContainer/>}/>
         <Route path ="/product" element = {<ProductTable/>}/>
-        <Route path ="/bussinessTable" element = {<BussinessTable/>}/>
-        <Route path ="//updateBusiness/:id" element = {<UpdateBusiness/>}/>
-        <Route path ="/BusniessInfo" element = {<BusniessInfo/>}/>
+        <Route path ="/businesstable" element = {<BussinessTable/>}/>
+        <Route path ="/updatebusiness/:id" element = {<UpdateBusiness/>}/>
+        <Route path ="/businessinfo" element = {<BusniessInfo/>}/>
+        <Route path ="/producttable" element = {<ProductTable/>}/>
+        <Route path ="/purchase" element = {<PurchaseInfo/>}/>
+        <Route path ="/suplier" element = {<SuplierInfo/>}/>
+        <Route path ="/supliertable" element = {<SupplierTable/>}/>
+
+
+
+
 
 
 
@@ -44,3 +53,4 @@ function App() {
 }
 
 export default App
+  

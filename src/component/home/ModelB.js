@@ -1,69 +1,97 @@
-import React, { useState } from 'react'
-import { Grid, Paper, TextField, Typography, Button } from '@mui/material'
+
+import  React,{useState} from 'react';
+import Backdrop from '@mui/material/Backdrop';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { Grid, Paper, TextField} from '@mui/material'
 import BusinessIcon from '@mui/icons-material/Business';
-
- 
-import {Link,useParams,useNavigate} from "react-router-dom"
 import axios from 'axios';
-import MainContainer from './MainContainer';
-const UpdateBusiness = () => {
-   const {id}=useParams()
-    
-    const paperStyle = { height: "70vh", padding: "25px",  marginTop: "100px",  marginRight:"10%",width: "100vh" };
-    const inputStyle = { padding: "10px" }
-    const avatarStyle = { backgroundColor: "#68f79a", color: "#ffff", fontSize :"40px", borderRadius:"50px",padding:"8px"}
-     
-    const [busniessInfoData, SetBusniessInfoData] = useState({
-        companyName: "",
-        phone: "",
-        ownerName: "",
-        email:"",
-        address: "",
-        country:"",
-        state:"",
-        zip:"",
-        pan:""
-      });
 
-      const navigate = useNavigate()
-      const [data, SetData] =useState([])
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  height: "70vh",
+  transform: 'translate(-50%, -50%)',
+  width: 800,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
+export default function ModalB() {
+
     
-    const  busniessInfo_getuser =()=>{
-     navigate('/bussinessTable')
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+   
+
+    
+  
+  const inputStyle = { padding: "10px" }
+  const avatarStyle = { backgroundColor: "#68f79a", color: "#ffff", fontSize :"40px", borderRadius:"50px",padding:"8px"}
+   
+  const [busniessInfoData, SetBusniessInfoData] = useState({
+      companyName: "",
+      phone: "",
+      ownerName: "",
+      email:"",
+      address: "",
+      country:"",
+      state:"",
+      zip:"",
+      pan:""
+    });
+
+
+    const [data, SetData] =React.useState([])
+  
+ 
+    const handleChange =(e)=>{
+      SetBusniessInfoData({...busniessInfoData, [e.target.name]:e.target.value})
     }
-      const handleChange =(e)=>{
-        SetBusniessInfoData({...busniessInfoData, [e.target.name]:e.target.value})
-      }
 
-      const busniessInfo_btn_submit = async() => {
-        // create a config to send the auth token 
-      const config = {
-        headers: {
-          //   /we are finding the token from localstorage 
-          "Authorization": localStorage.getItem("token")
-        },
-      };
-    await axios.get(`http://localhost:8080/business/getbusniess/${id}`,config).then((res)=>{
-         SetData(res.data)
-     
-        
-    })
-   // make sure the axios request should be  schyronous 
-    axios.put("http://localhost:8080/business/updatebusiness/",busniessInfoData,config).then((res)=>{
-        console.log(res.data)
-  })
-  
-      
-  
-     // console.log(productData);
+    const busniessInfo_btn_submit = async() => {
+      // create a config to send the auth token 
+    const config = {
+      headers: {
+        //   /we are finding the token from localstorage 
+        "Authorization": localStorage.getItem("token")
+      },
     };
+  
+ // make sure the axios request should be  schyronous 
+  axios.put("http://localhost:8080/business/updatebusiness/",busniessInfoData,config).then((res)=>{
+      console.log(res.data)
+})
+
     
-   return (
-       <>
-       
-<MainContainer/>
-    <Grid  >
- <Paper elevation={10} style={paperStyle}>
+
+   
+  };
+
+  return (
+    <div>
+      <Button onClick={handleOpen}>Open modal</Button>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        
+      >
+        <Fade in={open}>
+          <Box >
+          
+          <Grid  >
+ <Paper elevation={10}  sx={style}>
      <Grid align="center">
          <BusinessIcon style={avatarStyle} />
          <Typography variant="h5">
@@ -155,15 +183,16 @@ const UpdateBusiness = () => {
              />
            
          </div>
-         <Button variant="contained"  style={{marginRight:'10px'}} onClick={busniessInfo_btn_submit} >Add Business</Button>
-         <Button variant="contained" onClick={busniessInfo_getuser} > get Business</Button>
+         {/* <Button variant="contained"  style={{marginRight:'10px'}} onClick={busniessInfo_btn_submit} >Add Business</Button> */}
+         {/* <Button variant="contained" onClick={busniessInfo_getuser} > get Business</Button> */}
 
      </Grid>
  </Paper>
 
 </Grid>
-</>
-   )
- }
- 
- export default UpdateBusiness
+          </Box>
+        </Fade>
+      </Modal>
+    </div>
+  );
+}

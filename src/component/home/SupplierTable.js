@@ -1,12 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  TableContainer,
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell,
-} from "@mui/material";
+import React , { useEffect, useState } from 'react'
+import { TableContainer,Table,TableHead, TableBody,TableRow,TableCell,} from "@mui/material";
 import { Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -20,111 +13,97 @@ import Typography from "@mui/material/Typography";
 import { Grid, Paper, TextField } from "@mui/material";
 import BusinessIcon from "@mui/icons-material/Business";
 import { ContactSupportOutlined } from "@mui/icons-material";
-import UpdateBusiness from "./UpdateBusniess";
+import SupplierUpdate from "./SupplierUpdate";
 import { useNavigate } from "react-router-dom";
 
-function BussinessTable() {
-  const [data, SetData] = useState([]);
-  const [updateData, SetUpdateData] = useState({
-    companyName: "",
-    phone: "",
-    ownerName: "",
-    email: "",
-    address: "",
-    country: "",
-    state: "",
-    zip: "",
-    pan: "",
-  }); 
+function SupplierTable() {
+
+    const [data,SetData]=useState([]) 
+    const [updateData,SetUpdateData]= useState({
+        companyName: "",phone: "",  ownerName: "",email: "", address: "", country: "",
+        state: "", zip: "",  pan: "", 
+    })
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
- const navigate=useNavigate();
- 
+  const navigate=useNavigate();
+   
+
   const config = {
     headers: {
       //   /we are finding the token from localstorage
       Authorization: localStorage.getItem("token"),
     },
   };
-
   const update_btn = (ele, index) => {
     handleOpen();
     SetUpdateData(ele);
   };
   const update_submit = (id) => {
     console.log(id);
-    axios
-      .put(
-        `http://localhost:8080/business/updatebusiness/${id}`,
-        updateData,
-        config
-      )
-      .then((res) => {
+    axios.put(`http://localhost:8080/supplier/updatesupplier//${id}`,updateData,config).then((res) => {
         console.log(res.data);
 
         handleClose();
       });
   };
-  // function delete
-  const handle_delete = (id) => {
+   // function delete
+   const handle_delete = (id) => {
     axios
-      .delete(`http://localhost:8080/business/deletebusiness/${id}`, config)
+      .delete(`http://localhost:8080/supplier/deletesupplier/${id}`, config)
       .then((res) => {
         console.log(res.data);
       });
-  };
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    height: "70vh",
-    transform: "translate(-50%, -50%)",
-    width: 800,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
-
-  const inputStyle = { padding: "10px" };
-  const avatarStyle = {
-    backgroundColor: "#68f79a",
-    color: "#ffff",
-    fontSize: "40px",
-    borderRadius: "50px",
-    padding: "8px",
   };
 
   const handleChange = (e) => {
     SetUpdateData({ ...updateData, [e.target.name]: e.target.value });
   };
-
   useEffect(() => {
     axios
-      .get("http://localhost:8080/business/getbusniess/", config)
+      .get("http://localhost:8080/supplier/getsupplier/", config)
       .then((res) => {
         SetData(res.data);
       });
   }, [data]);
 
-  //
-
   const handle_navigate = () => {
-    navigate("/businessinfo");
+    navigate("/suplier");
   };
-
+     
+      const style = {
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        height: "70vh",
+        transform: "translate(-50%, -50%)",
+        width: 800,
+        bgcolor: "background.paper",
+        border: "2px solid #000",
+        boxShadow: 24,
+        p: 4,
+      };
+    
+      const inputStyle = { padding: "10px" };
+      const avatarStyle = {
+        backgroundColor: "#68f79a",
+        color: "#ffff",
+        fontSize: "40px",
+        borderRadius: "50px",
+        padding: "8px",
+      };
+    
   return (
     <>
-      <h2 align="center">Business Data Table</h2>
+ <h2 align="center">Supplier Data Table</h2>
       <div style={{ textAlign: "right", marginRight: "30px" }}>
-        <Button variant="contained" onClick={handle_navigate}>
-          Add Business
+        <Button variant="contained" onClick={handle_navigate} >
+          Add Supplier
         </Button>
       </div>
       <TableContainer
-        component={Paper}
+        // component={Paper}
         sx={{ maxHeight: "300px", marginTop: "30px" }}
       >
         <Table aria-label="simple table" stickyHeader>
@@ -159,8 +138,8 @@ function BussinessTable() {
                   <TableCell align="center"> {ele.zip}</TableCell>
                   <TableCell align="center"> {ele.pan}</TableCell>
                   <TableCell align="center">
-                    <EditIcon onClick={() => update_btn(ele, index)} />
-                    <DeleteIcon onClick={() => handle_delete(ele._id)} />
+                  <EditIcon onClick={() => update_btn(ele, index)} />
+                  <DeleteIcon onClick={() => handle_delete(ele._id)} />
                   </TableCell>
                 </TableRow>
               );
@@ -184,7 +163,7 @@ function BussinessTable() {
                 <Paper elevation={10} sx={style}>
                   <Grid align="center">
                     <BusinessIcon style={avatarStyle} />
-                    <Typography variant="h5">Busniess Info Update</Typography>
+                    <Typography variant="h5">Supplier Info Update</Typography>
                   </Grid>
                   <Grid align="center">
                     <div>
@@ -284,7 +263,7 @@ function BussinessTable() {
                       style={{ marginRight: "10px" }}
                       onClick={() => update_submit(updateData._id)}
                     >
-                      Update Business
+                      Update Supplier
                     </Button>
                     <Button
                       variant="contained"
@@ -301,8 +280,11 @@ function BussinessTable() {
           </Fade>
         </Modal>
       </div>
+
     </>
-  );
+
+
+  )
 }
 
-export default BussinessTable;
+export default SupplierTable

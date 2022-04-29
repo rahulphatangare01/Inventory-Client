@@ -1,58 +1,63 @@
 import React, { useState } from 'react'
 import { Grid, Paper, TextField, Typography, Button } from '@mui/material'
 import BusinessIcon from '@mui/icons-material/Business';
+import {Link,useParams,useNavigate} from "react-router-dom"
+
 import axios from 'axios';
-import { Navigate,useNavigate } from 'react-router-dom';
+
+import MainContainer from './MainContainer';
 
 const SuplierInfo = () => {
+   const {id}=useParams()
+
     const paperStyle = { height: "83vh", padding: "25px", margin: "3vh auto", width: "60vw" };
     const inputStyle = { padding: "10px" }
     const avatarStyle = { backgroundColor: "#68f79a", color: "#ffff", fontSize :"40px", borderRadius:"50px",padding:"8px"}
 
-    const Navigate = useNavigate()
-
     const [suplierInfoData, SetSuplierInfoData] = useState({
-        companyName: "",
-        phone: "",
-        ownerName: "",
-        email:"",
-        address: "",
-        country:"",
-        state:"",
-        zip:"",
-        pan:""
+        companyName: "", phone: "",ownerName: "",
+        email:"",address: "",country:"",state:"",
+        zip:"", pan:"" 
       });
-      const handleChange =(e)=>{
-        SetSuplierInfoData({...suplierInfoData, [e.target.name]:e.target.value})
-      }
+      const navigate = useNavigate()
+      const [data, SetData] =useState([])
 
-      const suplierInfo_btn_submit = async() => {
-          Navigate('/supliertable')
-        // create a config to send the auth token 
-      const config = {
-        headers: {
-          //   /we are finding the token from localstorage 
-          "Authorization": localStorage.getItem("token")
-        },
-      };
-     
-   // make sure the axios request should be  schyronous 
-  await axios.post("http://localhost:8080/supplier/createsupplier",suplierInfoData,config).then((res)=>{
-        console.log(res.data)
-  })
-  
-      
-  
-     // console.log(productData);
-    };
+      const  suplierInfo_getuser =()=>{
+        navigate('/supliertable')
+       }
+         const handleChange =(e)=>{
+           SetSuplierInfoData({...suplierInfoData, [e.target.name]:e.target.value})
+         }
+         const suplierInfo_btn_submit = async() => {
+            // create a config to send the auth token 
+          const config = {
+            headers: {
+              //   /we are finding the token from localstorage 
+              "Authorization": localStorage.getItem("token")
+            },
+          };
+        await axios.get(`http://localhost:8080/supplier/getsupplier/${id}`,config).then((res)=>{
+             SetData(res.data)
+         
+            
+        })
+       // make sure the axios request should be  schyronous 
+        axios.put("http://localhost:8080/supplier/updatesupplier/",suplierInfoData,config).then((res)=>{
+            console.log(res.data)
+      })
+        };
+   
 
+    
+
+   
     return (
         <Grid  >
             <Paper elevation={10} style={paperStyle}>
                 <Grid align="center">
                     <BusinessIcon style={avatarStyle} />
                     <Typography variant="h5">
-                    Supplier Info
+                    SuplierInfo
                     </Typography>
                 </Grid>
                 <Grid align="center">
@@ -140,6 +145,8 @@ const SuplierInfo = () => {
                       
                     </div>
                     <Button variant="contained" onClick={suplierInfo_btn_submit}  >Add Suplier</Button>
+         <Button variant="contained" onClick={suplierInfo_getuser} > get Supplier</Button>
+
                 </Grid>
             </Paper>
 

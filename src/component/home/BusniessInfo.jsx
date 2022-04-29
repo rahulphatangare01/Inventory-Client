@@ -1,54 +1,42 @@
 import React, { useState } from 'react'
 import { Grid, Paper, TextField, Typography, Button } from '@mui/material'
 import BusinessIcon from '@mui/icons-material/Business';
- import { useNavigate } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
 const BusniessInfo = () => {
-    
     const paperStyle = { height: "70vh", padding: "25px",  marginTop: "100px",  marginRight:"10%",width: "100vh" };
     const inputStyle = { padding: "10px" }
     const avatarStyle = { backgroundColor: "#68f79a", color: "#ffff", fontSize :"40px", borderRadius:"50px",padding:"8px"}
      
     const [busniessInfoData, SetBusniessInfoData] = useState({
-        companyName: "",
-        phone: "",
-        ownerName: "",
-        email:"",
-        address: "",
-        country:"",
-        state:"",
-        zip:"",
-        pan:""
-      });
+        companyName: "", phone: "",ownerName: "", email:"",address: "",
+        country:"", state:"",zip:"",pan:""
 
+      });
+        // navigation 
       const navigate = useNavigate()
-    
-    const  busniessInfo_getuser =()=>{
-     navigate('/bussinessTable')
-    }
       const handleChange =(e)=>{
         SetBusniessInfoData({...busniessInfoData, [e.target.name]:e.target.value})
       }
-
+       //function for submit button
       const busniessInfo_btn_submit = async() => {
+           navigate('/businesstable')
         // create a config to send the auth token 
       const config = {
         headers: {
-          //   /we are finding the token from localstorage 
-          "Authorization": localStorage.getItem("token")
-        },
+          //  we are finding the token from localstorage 
+          "Authorization": localStorage.getItem("token") 
+        },   
       };
      
-   // make sure the axios request should be  schyronous 
+   // axios req for creating new business Info. 
   await axios.post("http://localhost:8080/business/createbusinessInfo",busniessInfoData,config).then((res)=>{
         console.log(res.data)
   })
-  
-      
-  
-     // console.log(productData);
     };
+    
+
     
    return (
     <Grid  >
@@ -67,7 +55,6 @@ const BusniessInfo = () => {
                  label="Companyname"
                  name='companyName'
                  onChange={handleChange}
-
                  style={inputStyle}
              />
              <TextField
@@ -145,7 +132,7 @@ const BusniessInfo = () => {
            
          </div>   
          <Button variant="contained"  style={{marginRight:'10px'}} onClick={busniessInfo_btn_submit} >Add Business</Button>
-         <Button variant="contained" onClick={busniessInfo_getuser} > get Business</Button>
+            
 
      </Grid>
  </Paper>
