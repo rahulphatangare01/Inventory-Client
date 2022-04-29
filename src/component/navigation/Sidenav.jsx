@@ -9,7 +9,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 
 
 const Sidenav = () => {
-  const sideBar = { height: "100Vh", width: "20Vw", border: "1px solid #10043b", backgroundColor: "#10043b", postion: "sticky",  marginTop: "64px", overflow:"scroll", flex:"3.5",}
+  const sideBar = { height: "100Vh", width: "20Vw", border: "1px solid #10043b", backgroundColor: "#10043b", postion: "fixed",  marginTop: "64px", overflow:"scroll", flex:"3.5",}
   const icons = { color: "#24ffc8", margin: "4px" }
 const navigate = useNavigate()
  const logout_btn = () =>{

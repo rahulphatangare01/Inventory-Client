@@ -13,6 +13,7 @@ import SignCompo from "./component/home/SignCompo"
 import SuplierInfo from "./component/home/SuplierInfo"
 import SupplierTable from './component/home/SupplierTable';
 import UpdateBusiness from './component/home/UpdateBusniess';
+import SideBar from './component/navigation/SideBar';
  
 
 function App() {
@@ -22,26 +23,22 @@ function App() {
 
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<LoginCompo />} />
+        {/* <Route path="/" element={<LoginCompo />} />
         <Route path="/signup" element={<SignCompo />} />
         <Route path ="/main" element = {<MainContainer/>}/>
-        <Route path ="/product" element = {<ProductTable/>}/>
+        <Route path ="/product" element = {<ProductTable/>}/>  
         <Route path ="/businesstable" element = {<BussinessTable/>}/>
-        <Route path ="/updatebusiness/:id" element = {<UpdateBusiness/>}/>
+        <Route path ="/updatebusiness" element = {<UpdateBusiness/>}/>
         <Route path ="/businessinfo" element = {<BusniessInfo/>}/>
         <Route path ="/producttable" element = {<ProductTable/>}/>
         <Route path ="/purchase" element = {<PurchaseInfo/>}/>
         <Route path ="/suplier" element = {<SuplierInfo/>}/>
         <Route path ="/supliertable" element = {<SupplierTable/>}/>
-
-
-
-
-
-
+        <Route path ="/buyer" element = {<Buyer/>}/> */}
 
 
       </Routes>
+     <SideBar/>
     </BrowserRouter>
     
 

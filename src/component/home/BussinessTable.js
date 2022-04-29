@@ -107,7 +107,7 @@ function BussinessTable() {
       .then((res) => {
         SetData(res.data);
       });
-  }, [data]);
+  }, []);
 
   //
 

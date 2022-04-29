@@ -42,7 +42,7 @@ function SupplierTable() {
   };
   const update_submit = (id) => {
     console.log(id);
-    axios.put(`http://localhost:8080/supplier/updatesupplier//${id}`,updateData,config).then((res) => {
+    axios.put(`http://localhost:8080/supplier/updatesupplier/${id}`,updateData,config).then((res) => {
         console.log(res.data);
 
         handleClose();
@@ -60,13 +60,10 @@ function SupplierTable() {
   const handleChange = (e) => {
     SetUpdateData({ ...updateData, [e.target.name]: e.target.value });
   };
-  useEffect(() => {
-    axios
-      .get("http://localhost:8080/supplier/getsupplier/", config)
-      .then((res) => {
-        SetData(res.data);
+  useEffect(() => { axios.get("http://localhost:8080/supplier/getsupplier/", config).then((res) => {
+          SetData(res.data);
       });
-  }, [data]);
+  }, []);
 
   const handle_navigate = () => {
     navigate("/suplier");
