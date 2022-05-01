@@ -23,7 +23,7 @@ function App() {
 
     <BrowserRouter>
       <Routes>
-        {/* <Route path="/" element={<LoginCompo />} />
+         {/* <Route path="/" element={<LoginCompo />} />
         <Route path="/signup" element={<SignCompo />} />
         <Route path ="/main" element = {<MainContainer/>}/>
         <Route path ="/product" element = {<ProductTable/>}/>  
@@ -34,7 +34,7 @@ function App() {
         <Route path ="/purchase" element = {<PurchaseInfo/>}/>
         <Route path ="/suplier" element = {<SuplierInfo/>}/>
         <Route path ="/supliertable" element = {<SupplierTable/>}/>
-        <Route path ="/buyer" element = {<Buyer/>}/> */}
+        <Route path ="/buyer" element = {<Buyer/>}/>  */}
 
 
       </Routes>

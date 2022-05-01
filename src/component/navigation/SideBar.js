@@ -98,11 +98,12 @@ export default function SideBar() {
 
   const icons = { color: "#24ffc8", margin: "6px" }
 
-//   const icon={{
-//     minWidth: 0,
-//     mr: open ? 3 : 'auto',
-//     justifyContent: 'center',
-//   }}
+
+const Sx_list_Item = {
+    minHeight: 48,
+    justifyContent: open ? 'initial' : 'center',
+    px: 2.5,
+  }
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -146,7 +147,7 @@ export default function SideBar() {
         </DrawerHeader>
         <Divider />
         {/* <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          {['Dashboard', 'Sell', 'Stock','Busniessinfo'].map((text, index) => (
             <ListItemButton
               key={text}
               sx={{
@@ -184,7 +185,7 @@ export default function SideBar() {
             <ListItemText primary="Stock"/>
         </ListItem>
         
-        <ListItem button key="Invoice" style={icons} >
+        <ListItem button key="Invoice" style={icons}  sx = {Sx_list_Item}>
           <DescriptionIcon  style={icons}/>
             <ListItemText primary="Invoice"/>
         </ListItem>
@@ -198,7 +199,7 @@ export default function SideBar() {
       </List>
         <Divider />
         {/* <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          {['Dashboard', 'Sell', 'Stock','Busniessinfo].map((text, index) => (
             <ListItemButton
               key={text}
               sx={{
@@ -236,7 +237,16 @@ export default function SideBar() {
           feugiat vivamus at augue. At augue eget arcu dictum varius duis at
           consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
           sapien faucibus et molestie ac.
+        lorem10000
+
+
         </Typography>
+        <div>
+            <p>
+                lorem
+            </p>
+        </div>
+
         <Typography paragraph>
           Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
           eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
