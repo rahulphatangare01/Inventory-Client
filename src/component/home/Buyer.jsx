@@ -2,32 +2,25 @@ import React, { useState } from 'react'
 import { Grid, Paper, TextField, Typography, Button } from '@mui/material'
 import BusinessIcon from '@mui/icons-material/Business';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Buyer = () => {
-    const paperStyle = { height: "60vh", padding: "25px", margin: "3vh auto", width: "60vw" };
+    const paperStyle = { height: "75vh", padding: "25px", margin: "5vh auto", width: "60vw" };
     const inputStyle = { padding: "10px" }
     const avatarStyle = { backgroundColor: "#68f79a", color: "#ffff", fontSize :"40px", borderRadius:"50px",padding:"8px"}
 
 
-    const [buyerData, SetBuyerData] = useState({
-        companyName: "",
-        phone: "",
-        ownerName: "",
-        email:"",
-        productName:"",
-        stock:"",
-        address: "",
-        country:"",
-        state:"",
-        zip:"",
-        pan:""
-      });
-    
+    const [buyerData, SetBuyerData] = useState({companyName: "",phone: "",ownerName: "",
+        email:"", productName:"", stock:"", address: "", country:"", state:"", zip:"", pan:""});
+     
+        // Handlechange for update Buyer
       const handleChange =(e)=>{
         SetBuyerData({...buyerData, [e.target.name]:e.target.value})
       }
+      const navigate = useNavigate()
 
       const buyer_btn_submit = async() => {
+          navigate('/buyertable')
         // create a config to send the auth token 
       const config = {
         headers: {

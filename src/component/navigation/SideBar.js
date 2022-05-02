@@ -169,7 +169,7 @@ const Sx_list_Item = {
             </ListItemButton>
           ))}
         </List> */}
-        <List>
+        <List style={{margin:'4px'}}>
         <ListItem button key="Dashboard" style={icons} >
           <DashboardIcon  style={icons}/>
             <ListItemText primary="Dashboard"/>
@@ -185,7 +185,7 @@ const Sx_list_Item = {
             <ListItemText primary="Stock"/>
         </ListItem>
         
-        <ListItem button key="Invoice" style={icons}  sx = {Sx_list_Item}>
+        <ListItem button key="Invoice" style={icons}  > 
           <DescriptionIcon  style={icons}/>
             <ListItemText primary="Invoice"/>
         </ListItem>

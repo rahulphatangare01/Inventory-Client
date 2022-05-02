@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import BusniessInfo from "./component/home/BusniessInfo"
 import BussinessTable from './component/home/BussinessTable';
 import Buyer from "./component/home/Buyer"
+import BuyerTable from './component/home/BuyerTable';
 import LoginCompo from "./component/home/LoginCompo"
 import MainContainer from "./component/home/MainContainer"
 import Order from "./component/home/Order"
@@ -23,10 +24,10 @@ function App() {
 
     <BrowserRouter>
       <Routes>
-         {/* <Route path="/" element={<LoginCompo />} />
+          <Route path="/" element={<LoginCompo />} />
         <Route path="/signup" element={<SignCompo />} />
         <Route path ="/main" element = {<MainContainer/>}/>
-        <Route path ="/product" element = {<ProductTable/>}/>  
+        <Route path ="/product" element = {<ProductInfo/>}/>  
         <Route path ="/businesstable" element = {<BussinessTable/>}/>
         <Route path ="/updatebusiness" element = {<UpdateBusiness/>}/>
         <Route path ="/businessinfo" element = {<BusniessInfo/>}/>
@@ -34,11 +35,13 @@ function App() {
         <Route path ="/purchase" element = {<PurchaseInfo/>}/>
         <Route path ="/suplier" element = {<SuplierInfo/>}/>
         <Route path ="/supliertable" element = {<SupplierTable/>}/>
-        <Route path ="/buyer" element = {<Buyer/>}/>  */}
+        <Route path ="/buyer" element = {<Buyer/>}/>
+        <Route path ="/buyertable" element = {<BuyerTable/>}/>  
+
 
 
       </Routes>
-     <SideBar/>
+     {/* <SideBar/> */}
     </BrowserRouter>
     
 

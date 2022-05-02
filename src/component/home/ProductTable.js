@@ -100,8 +100,10 @@ const update_btn = (ele, index) => {
           .then((res) => {
             SetData(res.data);
           });
-      }, [data]);
-    
+      }, []);
+      const handle_navigate = () => {
+    navigate("/product");
+  };
    
 
    
@@ -109,12 +111,22 @@ const update_btn = (ele, index) => {
   
   return (
  <>
+
+<h2 align="center"> Product Data Table</h2>
+      <div style={{ textAlign: "right", marginRight: "30px" }}>
+        <Button variant="contained" onClick={handle_navigate}  >
+          Add Product
+        </Button>
+      </div>
     <TableContainer component={Paper}
     sx={{ maxHeight: '300px'}} >
+    
         <Table aria-label='simple table' stickyHeader>
     
+    
             <TableHead > 
-                    <h2  align='center' >Product Data Table</h2> 
+               
+                   
                 <TableRow>
                    <TableCell align='center'>name</TableCell>  
                    <TableCell align='center'>quantity</TableCell>  
