@@ -5,36 +5,36 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Buyer = () => {
-    const paperStyle = { height: "75vh", padding: "25px", margin: "5vh auto", width: "60vw" };
-    const inputStyle = { padding: "10px" }
-    const avatarStyle = { backgroundColor: "#68f79a", color: "#ffff", fontSize :"40px", borderRadius:"50px",padding:"8px"}
+const paperStyle = { height: "75vh", padding: "25px", margin: "5vh auto", width: "60vw" };
+const inputStyle = { padding: "10px" }
+const avatarStyle = { backgroundColor: "#68f79a", color: "#ffff", fontSize :"40px", borderRadius:"50px",padding:"8px"}
 
 
-    const [buyerData, SetBuyerData] = useState({companyName: "",phone: "",ownerName: "",
-        email:"", productName:"", stock:"", address: "", country:"", state:"", zip:"", pan:""});
+const [buyerData, SetBuyerData] = useState({companyName: "",phone: "",ownerName: "",
+email:"", productName:"", stock:"", address: "", country:"", state:"", zip:"", pan:""});
      
-        // Handlechange for update Buyer
-      const handleChange =(e)=>{
-        SetBuyerData({...buyerData, [e.target.name]:e.target.value})
-      }
-      const navigate = useNavigate()
+// handle change for update data of buyer
+const handleChange =(e)=>{
+SetBuyerData({...buyerData, [e.target.name]:e.target.value})}
 
-      const buyer_btn_submit = async() => {
-          navigate('/buyertable')
-        // create a config to send the auth token 
-      const config = {
+// Handlechange for after clicking button buyer
+ const navigate = useNavigate()
+const buyer_btn_submit = async() => {
+    navigate('/buyertable')
+
+ // create a config to send the auth token 
+    const config = {
         headers: {
-          //   /we are finding the token from localstorage 
+ // we are finding the token from localstorage 
           "Authorization": localStorage.getItem("token")
         },
       };
-     
-   // make sure the axios request should be  schyronous 
+// axios req for create buyer Details 
   await axios.post("http://localhost:8080/buyer/createbuyer",buyerData,config).then((res)=>{
         console.log(res.data)
   })
-  
-    };
+  };
+
     return (
         <Grid  >
             <Paper elevation={10} style={paperStyle}>
@@ -153,5 +153,4 @@ const Buyer = () => {
         </Grid>
     )
 }
-
 export default Buyer;

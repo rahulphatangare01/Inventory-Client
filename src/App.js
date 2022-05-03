@@ -13,7 +13,6 @@ import Sell from "./component/home/Sell"
 import SignCompo from "./component/home/SignCompo"
 import SuplierInfo from "./component/home/SuplierInfo"
 import SupplierTable from './component/home/SupplierTable';
-import UpdateBusiness from './component/home/UpdateBusniess';
 import SideBar from './component/navigation/SideBar';
  
 
@@ -29,7 +28,6 @@ function App() {
         <Route path ="/main" element = {<MainContainer/>}/>
         <Route path ="/product" element = {<ProductInfo/>}/>  
         <Route path ="/businesstable" element = {<BussinessTable/>}/>
-        <Route path ="/updatebusiness" element = {<UpdateBusiness/>}/>
         <Route path ="/businessinfo" element = {<BusniessInfo/>}/>
         <Route path ="/producttable" element = {<ProductTable/>}/>
         <Route path ="/purchase" element = {<PurchaseInfo/>}/>

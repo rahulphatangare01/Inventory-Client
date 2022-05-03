@@ -3,8 +3,6 @@ import { TableContainer,Table,TableHead, TableBody,TableRow,TableCell,} from "@m
 import { Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import axios from "axios";
-
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -12,34 +10,70 @@ import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
 import { Grid, Paper, TextField } from "@mui/material";
 import BusinessIcon from "@mui/icons-material/Business";
-import { ContactSupportOutlined } from "@mui/icons-material";
-import SupplierUpdate from "./SupplierUpdate";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
+//  style for Supplier table
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  height: "70vh",
+  transform: "translate(-50%, -50%)",
+  width: 800,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
+const inputStyle = { padding: "10px" };
+const avatarStyle = {
+  backgroundColor: "#68f79a",
+  color: "#ffff",
+  fontSize: "40px",
+  borderRadius: "50px",
+  padding: "8px",
+};
 
 function SupplierTable() {
 
-    const [data,SetData]=useState([]) 
-    const [updateData,SetUpdateData]= useState({
-        companyName: "",phone: "",  ownerName: "",email: "", address: "", country: "",
-        state: "", zip: "",  pan: "", 
-    })
-
+const [data,SetData]=useState([]) 
+const [updateData,SetUpdateData]= useState({
+    companyName: "",phone: "",  ownerName: "",email: "", address: "", country: "",
+    state: "", zip: "",  pan: "", 
+})
+// modal for update Supplier
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const navigate=useNavigate();
-   
 
-  const config = {
-    headers: {
-      //   /we are finding the token from localstorage
-      Authorization: localStorage.getItem("token"),
-    },
+  //  handelchange for supplier  update data
+  const handleChange = (e) => {
+    SetUpdateData({ ...updateData, [e.target.name]: e.target.value });
   };
-  const update_btn = (ele, index) => {
+
+  //  update supplier btn
+  const update_btn = (ele) => {
     handleOpen();
     SetUpdateData(ele);
   };
+  
+  // navigate page supplier info 
+  const navigate=useNavigate();
+  const handle_navigate = () => {
+    navigate("/suplier");
+  };
+
+// create a config to send the auth token 
+  const config = {
+    headers: {
+      //   we are finding the token from localstorage
+      Authorization: localStorage.getItem("token"),
+    },
+  };
+
+//  axios req for update supplier info
   const update_submit = (id) => {
     console.log(id);
     axios.put(`http://localhost:8080/supplier/updatesupplier/${id}`,updateData,config).then((res) => {
@@ -48,48 +82,21 @@ function SupplierTable() {
         handleClose();
       });
   };
-   // function delete
-   const handle_delete = (id) => {
-    axios
-      .delete(`http://localhost:8080/supplier/deletesupplier/${id}`, config)
-      .then((res) => {
-        console.log(res.data);
-      });
-  };
 
-  const handleChange = (e) => {
-    SetUpdateData({ ...updateData, [e.target.name]: e.target.value });
-  };
+  //  axios req for delete supplier info
+     const handle_delete = (id) => {
+      axios
+        .delete(`http://localhost:8080/supplier/deletesupplier/${id}`, config)
+        .then((res) => {
+          console.log(res.data);
+        });
+    };
+
+  //  axios req for get supplier info
   useEffect(() => { axios.get("http://localhost:8080/supplier/getsupplier/", config).then((res) => {
           SetData(res.data);
       });
   }, []);
-
-  const handle_navigate = () => {
-    navigate("/suplier");
-  };
-     
-      const style = {
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        height: "70vh",
-        transform: "translate(-50%, -50%)",
-        width: 800,
-        bgcolor: "background.paper",
-        border: "2px solid #000",
-        boxShadow: 24,
-        p: 4,
-      };
-    
-      const inputStyle = { padding: "10px" };
-      const avatarStyle = {
-        backgroundColor: "#68f79a",
-        color: "#ffff",
-        fontSize: "40px",
-        borderRadius: "50px",
-        padding: "8px",
-      };
     
   return (
     <>
@@ -144,7 +151,7 @@ function SupplierTable() {
           </TableBody>
         </Table>
       </TableContainer>
-
+{/* supplier update modal */}
       <div>
         <Modal
           aria-labelledby="transition-modal-title"

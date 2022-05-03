@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Paper, TextField, Typography, Button } from "@mui/material";
-import {
-  TableContainer,
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell,
-} from "@mui/material";
+import {TableContainer,Table,TableHead,TableBody,TableRow,TableCell,} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BusinessIcon from "@mui/icons-material/Business";
@@ -18,41 +11,47 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import { useNavigate } from "react-router-dom";
 
+// Style for Buyer-table
+const inputStyle = { padding: "10px" };
+const avatarStyle = {
+  backgroundColor: "#68f79a",
+  color: "#ffff",
+  fontSize: "40px",
+  borderRadius: "50px",
+  padding: "8px",
+};
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  height: "70vh",
+  transform: "translate(-50%, -50%)",
+  width: 800,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
+
 const BuyerTable = () => {
-  const inputStyle = { padding: "10px" };
-  const avatarStyle = {
-    backgroundColor: "#68f79a",
-    color: "#ffff",
-    fontSize: "40px",
-    borderRadius: "50px",
-    padding: "8px",
-  };
 
   const [data, SetData] = useState([]);
-
-  //  const [buyerData,SetBuyerData] = ([])
   const [updateData, SetUpdateData] = useState({
-    companyName: "",
-    phone: "",
-    ownerName: "",
-    email: "",
-    productName: "",
-    stock: "",
-    address: "",
-    country: "",
-    state: "",
-    zip: "",
-    pan: "",
-  });
+    companyName: "",phone: "",ownerName: "",email: "",productName: "",
+    stock: "",address: "",country: "",state: "",zip: "",pan: "",});
 
-  const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  //  navigate page to create buyer
+  const navigate = useNavigate();
+
+ // create a config to send the auth token 
 
   const config = {
     headers: {
-      //   /we are finding the token from localstorage
+  // we are finding the token from localstorage
       Authorization: localStorage.getItem("token"),
     },
   };
@@ -65,7 +64,7 @@ const BuyerTable = () => {
     SetUpdateData({ ...updateData, [e.target.name]: e.target.value });
   };
 
-  // function delete
+  // axios call for delete buyer information
   const handle_delete = (id) => {
     axios
       .delete(`http://localhost:8080/buyer/deletebuyer/${id}`, config)
@@ -74,7 +73,7 @@ const BuyerTable = () => {
       });
   };
 
-  //  Product Update Api
+  // axios call for Update buyer information  
   const update_btn = (ele, index) => {
     handleOpen();
     SetUpdateData(ele);
@@ -90,34 +89,13 @@ const BuyerTable = () => {
       });
   };
 
-  //   Product Get Api
+  // axios call for Get  buyer information
   useEffect(() => {
     axios.get("http://localhost:8080/buyer/getbuyer", config).then((res) => {
       SetData(res.data);
     });
   }, []);
 
-  //    style for table
-
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    height: "70vh",
-    transform: "translate(-50%, -50%)",
-    width: 800,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
-
-  //   const paperStyle = {
-  //     height: "75vh",
-  //     padding: "25px",
-  //     margin: "5vh auto",
-  //     width: "60vw",
-  //   };
   return (
     <>
       <h2 align="center">Buyer Data Table</h2>
@@ -175,7 +153,7 @@ const BuyerTable = () => {
           </TableBody>
         </Table>
       </TableContainer>
-
+{/*  Update modal  */}
       <div>
         <Modal
           aria-labelledby="transition-modal-title"

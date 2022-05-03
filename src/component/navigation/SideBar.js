@@ -1,4 +1,4 @@
-import * as React from 'react';
+import  React, {useState} from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -12,19 +12,19 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import {  ListItem } from '@mui/material'
-
+import AccountCircle from '@mui/icons-material/AccountCircle';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import SellIcon from '@mui/icons-material/Sell';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import DescriptionIcon from '@mui/icons-material/Description';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { Navigate, useNavigate } from 'react-router-dom';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import MoreIcon from '@mui/icons-material/MoreVert';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 const drawerWidth = 240;
@@ -95,20 +95,106 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function SideBar() {
 
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+const menuId = 'primary-search-account-menu';
+
+
+
+export default function SideBar() {
+  // mui side person icons methids are here
+  const [user ,setUser]=useState([])
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  
+  const isMenuOpen = Boolean(anchorEl);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
   const navigate = useNavigate()
 
-  const icons = { color: "#24ffc8", margin: "6px" }
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+  };
 
-
-const Sx_list_Item = {
-    minHeight: 48,
-    justifyContent: open ? 'initial' : 'center',
-    px: 2.5,
+  const handleMobileMenuOpen = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
+  const navigate_Bussniess = ()=>{
+    navigate('/businessinfo')
   }
+
+  const menuId = 'primary-search-account-menu';
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={navigate_Bussniess} >My Busniess info</MenuItem>
+    </Menu>
+  );
+
+  const mobileMenuId = 'primary-search-account-menu-mobile';
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <p>Profile</p>
+      </MenuItem>
+    </Menu>
+  );
+
+  
+  //  Style for sidBar
+const icons = { color: "#24ffc8", margin: "6px" }
+
+
+
+  const theme = useTheme();
+  const [open, setOpen] = useState(false);
+  // Navigate page
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -116,16 +202,30 @@ const Sx_list_Item = {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  // const logout_btn = () =>{
-  //   localStorage.removeItem("token")
-  //   // navigate('/')
-  // }
-  // Logout btn 
+//  
   const logout_btn = () =>{
     localStorage.removeItem("token")
     navigate('/')
   }
 
+  //axios call for get the user name 
+  const getdata = async() => {
+    // create a config to send the auth token 
+  const config = {
+    headers: {
+      //   we are finding the token from localstorage 
+      "Authorization": localStorage.getItem("token")
+    },
+  };
+ 
+// make sure the axios request should be  schyronous 
+await axios.get("http://localhost:8080/auth/getuser",config).then((res)=>{
+setUser(res.data.name)
+})
+
+};
+getdata()
+ 
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -146,8 +246,40 @@ const Sx_list_Item = {
           <Typography variant="h6" noWrap component="div">
             Inventory app
           </Typography>
+          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Typography variant='h6' style={{display:"flex",justifyContent:"center",alignItems:"center"}}>{user}</Typography>
+            
+            <IconButton
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+          </Box>
+          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              size="large"
+              aria-label="show more"
+              aria-controls={mobileMenuId}
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+              color="inherit"
+            >
+              <MoreIcon />
+              
+            </IconButton>
+          </Box>
         </Toolbar>
+
       </AppBar>
+      {renderMobileMenu}
+      {renderMenu}
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>

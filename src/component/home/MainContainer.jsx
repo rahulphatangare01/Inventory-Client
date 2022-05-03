@@ -6,25 +6,27 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 // import SignCompo from "./component/home/SignCompo"
 import LoginCompo from "./LoginCompo"
 import Home from "./Home";
+import SideBar from "../navigation/SideBar";
 
 
 
 export default function MainContainer() {
   return (
     <>
+    <SideBar/>
     {/* remove Headnav  */}
-      <Headnav />
-      <Box sx={{ width: 1 }}>
+      {/* <Headnav /> */}
+      {/* <Box sx={{ width: 1 }}>
         <Box display="grid" gridTemplateColumns="repeat(12, 1fr)">
-          <Box gridColumn="span 4">
+          <Box gridColumn="span 4"> */}
           {/*  sidnav convert in to sidebar with funtionally */}
-            <Sidenav />               
+            {/* <Sidenav />               
           </Box>
-          <Box gridColumn="span 8" style={{"marginTop":65}}>
-            <Home/>
-          </Box>
+          <Box gridColumn="span 8" style={{"marginTop":65}}> */}
+            {/* <Home/> */}
+          {/* </Box>
         </Box>
-      </Box>
+      </Box> */}
        
     </>
   );

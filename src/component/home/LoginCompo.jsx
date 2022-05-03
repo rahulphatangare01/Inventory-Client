@@ -1,25 +1,35 @@
 import React, { useState } from "react";
-import {Avatar,Grid,Paper,Typography,TextField,Button,} from "@mui/material";
+import {Avatar, Grid,Paper,Typography,TextField,Button,} from "@mui/material";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
+
+// styling for login page
+const avatarStyle = { backgroundColor: "#68f79a" };
+const papreStyle = {
+  padding: "20px",
+  height: "50vh",
+  width: "280px",
+  margin: "100px auto",
+};
+
 const LoginCompo = () => {
   
-  //  Navigate page after login go to main page
-  const navigate = useNavigate();
-
-  const [signInData, setSignInData] = useState({
+const [signInData, setSignInData] = useState({
     email: "",
     password: "",
-  });
-  //   HandleChange for Sign in
+});
+//   HandleChange for Sign in user
   const handleChange = (e) => {
     setSignInData({ ...signInData, [e.target.name]: e.target.value });
   };
 
-  //  Post Api (Signin Api )
+  //  Navigate page after login go to main page
+  const navigate = useNavigate();
+
+  //  axios req for sign in user
   const handleSignin = () => {
     axios.post("http://localhost:8080/auth/login", signInData).then((res) => {
       let response = res.data;
@@ -30,15 +40,6 @@ const LoginCompo = () => {
         console.log("token not present");
       }
     });
-  };
-
-   // styling for login page
-   const avatarStyle = { backgroundColor: "#68f79a" };
-   const papreStyle = {
-    padding: "20px",
-    height: "70vh",
-    width: "280px",
-    margin: "30px auto",
   };
 
   return (
@@ -70,7 +71,6 @@ const LoginCompo = () => {
           onChange={handleChange}
           fullWidth
         />
-
         <Grid align="Center">
           <br />
           <Button variant="contained" fullWidth onClick={handleSignin}>
@@ -79,7 +79,7 @@ const LoginCompo = () => {
         </Grid>
         <br />
         <Typography>
-          Don't have an account
+          Don't have an account?
           <Link to="/signup">Signup</Link>
         </Typography>
       </Paper>

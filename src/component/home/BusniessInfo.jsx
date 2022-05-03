@@ -9,19 +9,20 @@ const BusniessInfo = () => {
     const inputStyle = { padding: "10px" }
     const avatarStyle = { backgroundColor: "#68f79a", color: "#ffff", fontSize :"40px", borderRadius:"50px",padding:"8px"}
      
-    const [busniessInfoData, SetBusniessInfoData] = useState({
-        companyName: "", phone: "",ownerName: "", email:"",address: "",
-        country:"", state:"",zip:"",pan:""
+const [busniessInfoData, SetBusniessInfoData] = useState({
+    companyName: "", phone: "",ownerName: "", email:"",address: "",
+    country:"", state:"",zip:"",pan:""});
 
-      });
-        // navigation 
-      const navigate = useNavigate()
+    //     handleChange for busniess info Update
       const handleChange =(e)=>{
         SetBusniessInfoData({...busniessInfoData, [e.target.name]:e.target.value})
-      }
-       //function for submit button
+    }
+
+       // navigation  page after clicking bussinesstable page
+       const navigate = useNavigate()
       const busniessInfo_btn_submit = async() => {
            navigate('/businesstable')
+
         // create a config to send the auth token 
       const config = {
         headers: {
@@ -30,13 +31,11 @@ const BusniessInfo = () => {
         },   
       };
      
-   // axios req for creating new business Info. 
+   // axios req for create Business info  
   await axios.post("http://localhost:8080/business/createbusinessInfo",busniessInfoData,config).then((res)=>{
         console.log(res.data)
   })
     };
-    
-
     
    return (
     <Grid  >
@@ -129,16 +128,11 @@ const BusniessInfo = () => {
                  name='pan'
                  onChange={handleChange}
              />
-           
          </div>   
          <Button variant="contained"  style={{marginRight:'10px'}} onClick={busniessInfo_btn_submit} >Add Business</Button>
-            
-
      </Grid>
  </Paper>
-
 </Grid>
-
    )
  }
  

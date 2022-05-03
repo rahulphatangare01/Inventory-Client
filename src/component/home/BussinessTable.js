@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {
-  TableContainer,
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell,
-} from "@mui/material";
+import {TableContainer,Table,TableHead,TableBody,TableRow,TableCell,} from "@mui/material";
 import { Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
-
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -19,40 +11,67 @@ import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
 import { Grid, Paper, TextField } from "@mui/material";
 import BusinessIcon from "@mui/icons-material/Business";
-import { ContactSupportOutlined } from "@mui/icons-material";
-import UpdateBusiness from "./UpdateBusniess";
 import { useNavigate } from "react-router-dom";
 
-function BussinessTable() {
-  const [data, SetData] = useState([]);
-  const [updateData, SetUpdateData] = useState({
-    companyName: "",
-    phone: "",
-    ownerName: "",
-    email: "",
-    address: "",
-    country: "",
-    state: "",
-    zip: "",
-    pan: "",
-  }); 
+// style for business Table
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  height: "70vh",
+  transform: "translate(-50%, -50%)",
+  width: 800,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
-  const [open, setOpen] = React.useState(false);
+const inputStyle = { padding: "10px" };
+const avatarStyle = {
+  backgroundColor: "#68f79a",
+  color: "#ffff",
+  fontSize: "40px",
+  borderRadius: "50px",
+  padding: "8px",
+};
+
+function BussinessTable() {
+
+const [data, SetData] = useState([]);
+const [updateData, SetUpdateData] = useState({
+    companyName: "",phone: "",ownerName: "",email: "",address: "",country: "",state: "",zip: "",pan: "",
+  }); 
+//  model open close 
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  //  HandleChange update Business data
+  const handleChange = (e) => {
+    SetUpdateData({ ...updateData, [e.target.name]: e.target.value });
+  };
+
+ //  navigate page after clicking button business info
  const navigate=useNavigate();
- 
+  const handle_navigate = () => {
+    navigate("/businessinfo");
+  };
+
+  // create a config to send the auth token 
   const config = {
     headers: {
-      //   /we are finding the token from localstorage
+      //   we are finding the token from localstorage
       Authorization: localStorage.getItem("token"),
     },
   };
 
-  const update_btn = (ele, index) => {
+  const update_btn = (ele) => {
     handleOpen();
     SetUpdateData(ele);
   };
+
+//   axios req for update  business info 
   const update_submit = (id) => {
     console.log(id);
     axios
@@ -67,7 +86,8 @@ function BussinessTable() {
         handleClose();
       });
   };
-  // function delete
+
+  // axios req for delete business info
   const handle_delete = (id) => {
     axios
       .delete(`http://localhost:8080/business/deletebusiness/${id}`, config)
@@ -75,32 +95,8 @@ function BussinessTable() {
         console.log(res.data);
       });
   };
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    height: "70vh",
-    transform: "translate(-50%, -50%)",
-    width: 800,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
-
-  const inputStyle = { padding: "10px" };
-  const avatarStyle = {
-    backgroundColor: "#68f79a",
-    color: "#ffff",
-    fontSize: "40px",
-    borderRadius: "50px",
-    padding: "8px",
-  };
-
-  const handleChange = (e) => {
-    SetUpdateData({ ...updateData, [e.target.name]: e.target.value });
-  };
-
+  
+  //  axios req for get business info
   useEffect(() => {
     axios
       .get("http://localhost:8080/business/getbusniess/", config)
@@ -108,12 +104,6 @@ function BussinessTable() {
         SetData(res.data);
       });
   }, []);
-
-  //
-
-  const handle_navigate = () => {
-    navigate("/businessinfo");
-  };
 
   return (
     <>
@@ -168,7 +158,7 @@ function BussinessTable() {
           </TableBody>
         </Table>
       </TableContainer>
-
+{/* update Business Modal */}
       <div>
         <Modal
           aria-labelledby="transition-modal-title"

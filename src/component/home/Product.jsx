@@ -4,24 +4,37 @@ import BusinessIcon from "@mui/icons-material/Business";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+//   Style for product info
+const paperStyle = {
+  height: "60vh",
+  padding: "25px",
+  margin: "3vh auto",
+  width: "60vw",
+};
+const inputStyle = { padding: "10px" };
+const avatarStyle = {
+  backgroundColor: "#68f79a",
+  color: "#ffff",
+  fontSize: "40px",
+  borderRadius: "50px",
+  padding: "8px",
+};
 
 const ProductInfo = () => {
 
-const [productData, SetproductData] = useState({
-  name: "",
-  quantity: "",
-  price: "",
-  modelNo: "",
-});
+const [productData, SetproductData] = useState({name: "",quantity: "",price: "",modelNo: "",});
+
+// HandleChange for  for set product
+const handleChange = (e) => {
+  SetproductData({ ...productData, [e.target.name]: e.target.value });
+};
 
 // Navigate page to ProductTable
 const navigate = useNavigate();
-
-//  Event for submit button
 const product_btn_submit = async () => {
   navigate("/producttable");
 
-  // create a config to send the auth token
+// create a config to send the auth token
   const config = {
     headers: {
       // we are finding the token from localstorage
@@ -29,33 +42,13 @@ const product_btn_submit = async () => {
     },
   };
 
-  // make sure the axios request should be  schyronous
+  // axios request  for create product info
   await axios
     .post("http://localhost:8080/product/createProduct", productData, config)
     .then((res) => {
       console.log(res.data);
     });
 };
-
-// HandleChange for  for set product
-const handleChange = (e) => {
-  SetproductData({ ...productData, [e.target.name]: e.target.value });
-};
-//   Style for product
-  const paperStyle = {
-    height: "60vh",
-    padding: "25px",
-    margin: "3vh auto",
-    width: "60vw",
-  };
-  const inputStyle = { padding: "10px" };
-  const avatarStyle = {
-    backgroundColor: "#68f79a",
-    color: "#ffff",
-    fontSize: "40px",
-    borderRadius: "50px",
-    padding: "8px",
-  };
 
   return (
     <Grid>
@@ -103,7 +96,6 @@ const handleChange = (e) => {
             />
           </div>
           <br />
-
           <Button variant="contained" onClick={product_btn_submit}>
             Add Product
           </Button>

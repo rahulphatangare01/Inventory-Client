@@ -2,7 +2,6 @@ import React from 'react'
 import { Grid, Paper, TextField, Typography, Button } from '@mui/material'
 import BusinessIcon from '@mui/icons-material/Business';
 
-
 const SuplierInfo = () => {
     const paperStyle = { height: "40vh", padding: "25px", margin: "3vh auto", width: "60vw" };
     const inputStyle = { padding: "10px" }

@@ -2,48 +2,40 @@ import React, { useState } from 'react'
 import { Grid, Paper, TextField, Typography, Button } from '@mui/material'
 import BusinessIcon from '@mui/icons-material/Business';
 import axios from 'axios';
-import { Navigate,useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+//  Style for Supplier info
+const paperStyle = { height: "83vh", padding: "25px", margin: "3vh auto", width: "60vw" };
+const inputStyle = { padding: "10px" }
+const avatarStyle = { backgroundColor: "#68f79a", color: "#ffff", fontSize :"40px", borderRadius:"50px",padding:"8px"}
 
 const SuplierInfo = () => {
-    const paperStyle = { height: "83vh", padding: "25px", margin: "3vh auto", width: "60vw" };
-    const inputStyle = { padding: "10px" }
-    const avatarStyle = { backgroundColor: "#68f79a", color: "#ffff", fontSize :"40px", borderRadius:"50px",padding:"8px"}
+   
+const [suplierInfoData, SetSuplierInfoData] = useState({
+    companyName: "",phone: "",ownerName: "",email:"",address: "",
+    country:"",state:"",zip:"",pan:""});
 
-    const Navigate = useNavigate()
-
-    const [suplierInfoData, SetSuplierInfoData] = useState({
-        companyName: "",
-        phone: "",
-        ownerName: "",
-        email:"",
-        address: "",
-        country:"",
-        state:"",
-        zip:"",
-        pan:""
-      });
-      const handleChange =(e)=>{
+    //  handleChange for supplier data
+    const handleChange =(e)=>{
         SetSuplierInfoData({...suplierInfoData, [e.target.name]:e.target.value})
-      }
+    }
 
-      const suplierInfo_btn_submit = async() => {
-          Navigate('/supliertable')
-        // create a config to send the auth token 
+  // create a config to send the auth token 
       const config = {
         headers: {
           //   /we are finding the token from localstorage 
           "Authorization": localStorage.getItem("token")
         },
       };
-     
-   // make sure the axios request should be  schyronous 
+
+      // use navigate after clicking the button suplierTable
+      const Navigate = useNavigate()
+      const suplierInfo_btn_submit = async() => {
+          Navigate('/supliertable')
+   //  axios request for create supplier info
   await axios.post("http://localhost:8080/supplier/createsupplier",suplierInfoData,config).then((res)=>{
         console.log(res.data)
   })
-  
-      
-  
-     // console.log(productData);
     };
 
     return (
