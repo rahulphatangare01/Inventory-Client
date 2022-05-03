@@ -97,7 +97,7 @@ export default function Headnav() {
     // create a config to send the auth token 
   const config = {
     headers: {
-      //   /we are finding the token from localstorage 
+      //   we are finding the token from localstorage 
       "Authorization": localStorage.getItem("token")
     },
   };
@@ -107,9 +107,6 @@ await axios.get("http://localhost:8080/auth/getuser",config).then((res)=>{
 setUser(res.data.name)
 })
 
-  
-
- // console.log(productData);
 };
 getdata()
 

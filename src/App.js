@@ -37,11 +37,13 @@ function App() {
         <Route path ="/supliertable" element = {<SupplierTable/>}/>
         <Route path ="/buyer" element = {<Buyer/>}/>
         <Route path ="/buyertable" element = {<BuyerTable/>}/>  
+        <Route path ="/sidebar" element = {<SideBar/>}/>  
 
 
+
+     {/* <SideBar/> */}
 
       </Routes>
-     {/* <SideBar/> */}
     </BrowserRouter>
     
 

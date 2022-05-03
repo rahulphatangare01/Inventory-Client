@@ -12,11 +12,13 @@ import Home from "./Home";
 export default function MainContainer() {
   return (
     <>
+    {/* remove Headnav  */}
       <Headnav />
       <Box sx={{ width: 1 }}>
         <Box display="grid" gridTemplateColumns="repeat(12, 1fr)">
           <Box gridColumn="span 4">
-            <Sidenav />
+          {/*  sidnav convert in to sidebar with funtionally */}
+            <Sidenav />               
           </Box>
           <Box gridColumn="span 8" style={{"marginTop":65}}>
             <Home/>
