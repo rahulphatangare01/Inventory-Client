@@ -24,6 +24,8 @@ import SellIcon from '@mui/icons-material/Sell';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import DescriptionIcon from '@mui/icons-material/Description';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { Navigate, useNavigate } from 'react-router-dom';
+
 
 const drawerWidth = 240;
 
@@ -35,6 +37,7 @@ const openedMixin = (theme) => ({
   }),
   overflowX: 'hidden',
 });
+
 
 const closedMixin = (theme) => ({
   transition: theme.transitions.create('width', {
@@ -93,8 +96,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function SideBar() {
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate()
 
   const icons = { color: "#24ffc8", margin: "6px" }
 
@@ -111,11 +116,15 @@ const Sx_list_Item = {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  // const logout_btn = () =>{
+  //   localStorage.removeItem("token")
+  //   // navigate('/')
+  // }
+  // Logout btn 
   const logout_btn = () =>{
     localStorage.removeItem("token")
-    // navigate('/')
+    navigate('/')
   }
-  
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -135,7 +144,7 @@ const Sx_list_Item = {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Mini variant drawer
+            Inventory app
           </Typography>
         </Toolbar>
       </AppBar>
@@ -146,29 +155,7 @@ const Sx_list_Item = {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        {/* <List>
-          {['Dashboard', 'Sell', 'Stock','Busniessinfo'].map((text, index) => (
-            <ListItemButton
-              key={text}
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          ))}
-        </List> */}
+        
         <List style={{margin:'4px'}}>
         <ListItem button key="Dashboard" style={icons} >
           <DashboardIcon  style={icons}/>
@@ -198,68 +185,18 @@ const Sx_list_Item = {
         
       </List>
         <Divider />
-        {/* <List>
-          {['Dashboard', 'Sell', 'Stock','Busniessinfo].map((text, index) => (
-            <ListItemButton
-              key={text}
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          ))}
-        </List> */}
+    
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         <Typography paragraph>
-          {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-          enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-          imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-          Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-          Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-          nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-          leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-          feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-          consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-          sapien faucibus et molestie ac.
-        lorem10000 */}
+         
 
 
         </Typography>
-        <div>
-            <p>
-                lorem
-            </p>
-        </div>
+       
 
-        <Typography paragraph>
-          {/* Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-          eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-          neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-          sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-          tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-          gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-          et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-          tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a. */}
-        </Typography>
+       
       </Box>
     </Box>
   );
